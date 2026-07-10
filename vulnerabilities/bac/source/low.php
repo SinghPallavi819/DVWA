@@ -32,8 +32,10 @@ if (isset($_GET['action']) && isset($_GET['user_id'])) {
                 
                 if ($id == $cookie_id) {
                     // Access granted
-                    $query = "SELECT first_name, last_name, user_id, avatar FROM users WHERE user_id = $id;";
-                    $result = mysqli_query($GLOBALS["___mysqli_ston"], $query);
+                    $stmt = mysqli_prepare($GLOBALS["___mysqli_ston"], "SELECT first_name, last_name, user_id, avatar FROM users WHERE user_id = ?;");
+                    mysqli_stmt_bind_param($stmt, "i", $id);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
                     
                     if ($result && mysqli_num_rows($result) > 0) {
                         $row = mysqli_fetch_assoc($result);
